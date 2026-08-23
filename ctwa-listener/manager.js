@@ -12,6 +12,7 @@ import { fork } from "child_process";
 import express from "express";
 import bcrypt from "bcryptjs";
 import { db, newId } from "./db.js";
+import { HTML } from "./ui.js";
 
 const PORT = Number(process.env.PORT || 7100);
 const ROOT = process.cwd();
@@ -591,6 +592,7 @@ app.get("/api/agents/:id/events", requireAuth, ownedAgent, (req, res) => {
 
 // --------------------------------------------------------------- boot
 
+app.get("/", (_req, res) => res.type("html").send(HTML));
 app.get("/health", (_req, res) => res.json({ ok: true, ram: ramInfo() }));
 
 app.listen(PORT, () => {
